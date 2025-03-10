@@ -12,6 +12,7 @@ connectDB();
 
 //Route files
 const categoryRoutes = require("./routes/categories");
+const productRoutes = require("./routes/products");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 
 //Mount Routes
 app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v1/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");

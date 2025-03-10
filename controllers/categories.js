@@ -3,8 +3,8 @@ const Product = require("../models/Product");
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 
-// @desc      Get all categories
-// @route     GET /api/v1/categories
+// @desc      Create a new categories
+// @route     POST /api/v1/categories
 exports.addCategory = asyncHandler(async (req, res, next) => {
   const { name } = req.body;
 
@@ -22,8 +22,8 @@ exports.addCategory = asyncHandler(async (req, res, next) => {
     .json({ success: true, message: "Category added successfully", category });
 });
 
-// @desc      Get all categories
-// @route     GET /api/v1/categories
+// @desc      Delete a category
+// @route     DELETE /api/v1/categories/:id
 exports.deleteCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
