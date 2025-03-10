@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
+const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 
 // Load env vars
@@ -21,7 +22,9 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("API is running...");
-}); //based hasan tanvi
+});
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
