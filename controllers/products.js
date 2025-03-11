@@ -31,12 +31,12 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
 exports.createProduct = asyncHandler(async (req, res, next) => {
   const { name, description, price, discount, image, status, categoryId } =
     req.body;
+  if (!name || name.trim().length === 0)
+    return next(new ErrorResponse("Product name cannot be empty", 400));
 
   // Validate category
   const category = await Category.findById(categoryId);
-  if (!category) {
-    return next(new ErrorResponse(`Invalid category`, 400));
-  }
+  if (!category) return next(new ErrorResponse(`Invalid category`, 400));
 
   // Generate product code
   const productCode = generateProductCode(name);
@@ -68,7 +68,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findByIdAndUpdate(
     id,
     { status, description, discount },
-    { new: true }
+    { new: true, runValidators: true }
   );
 
   if (!product) {
