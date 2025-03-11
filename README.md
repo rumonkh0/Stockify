@@ -57,18 +57,22 @@ npm install
 rename the  `config1.env` file to `config.env` in config folder and add the following variables:
 
 ```
-MONGO_URI= your mongo uri
+MONGO_URI= /*your mongo uri*/
 PORT=5000
 ```
 
 ### **5. Start the Server**
 
 ```
+# Run in dev mode
+npm run dev
+
+# Run in prod mode
 npm start
 ```
 
 The server will start on `http://localhost:5000`.
----
+--------------------------
 
 ## **API Documentation**
 
@@ -88,12 +92,14 @@ Below is the ****Data Model diagram**** representation of the database structure
 1. **`categories`** and **`products`** have a **one-to-many** relationship.
    * A category can have multiple products.
    * A product belongs to a single category.
----------------------------------------
+
+---
+
 ## **Contact**
 
 For questions or feedback, please contact:
 
 * **MD Rummanul Haque Khan Ruman**
-* ​**Email**​: [rummanul.khan@gmail.com](https://mailto:[rummanul.khan@gmail.com)
-* ​**GitHub**​: [rumonkh0](https://github.com/rumonkh0)
+* **Email**: [rummanul.khan@gmail.com](https://mailto:[rummanul.khan@gmail.com)
+* **GitHub**: [rumonkh0](https://github.com/rumonkh0)
 
