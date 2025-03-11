@@ -5,6 +5,27 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const generateProductCode = require("../utils/productCodeGenerator");
 
+// @desc      Get all products
+// @route     GET /api/v1/products
+exports.getProducts = asyncHandler(async (req, res, next) => {
+  const { category, search } = req.query;
+
+  const filter = {};
+  if (category) filter.category = category;
+  if (search) filter.name = { $regex: search, $options: "i" };
+
+  const products = await Product.find(filter).populate("category");
+
+  const response = products.map((product) => ({
+    ...product.toObject(),
+    finalPrice: product.price * (1 - product.discount / 100),
+  }));
+
+  res
+    .status(200)
+    .json({ success: true, message: "Found all products", data: response });
+});
+
 // @desc      Create a new product
 // @route     POST /api/v1/products
 exports.createProduct = asyncHandler(async (req, res, next) => {
@@ -38,8 +59,8 @@ exports.createProduct = asyncHandler(async (req, res, next) => {
     .json({ success: true, message: "Product added successfully", product });
 });
 
-// @desc      Get single product
-// @route     GET /api/v1/products/:ID
+// @desc      Update single product
+// @route     POST /api/v1/products/:id
 exports.updateProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { status, description, discount } = req.body;
@@ -57,28 +78,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   res.status(200).json(product);
 });
 
-// @desc      Get all products
-// @route     GET /api/v1/products
-exports.getProducts = asyncHandler(async (req, res, next) => {
-  const { category, search } = req.query;
-
-  const filter = {};
-  if (category) filter.category = category;
-  if (search) filter.name = { $regex: search, $options: "i" };
-
-  const products = await Product.find(filter).populate("category");
-
-  const response = products.map((product) => ({
-    ...product.toObject(),
-    finalPrice: product.price * (1 - product.discount / 100),
-  }));
-
-  res
-    .status(200)
-    .json({ success: true, message: "Found all products", data: response });
-});
-
-// @desc      Get all products
+// @desc      Delete a product
 // @route     DELETE /api/v1/products/:id
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
