@@ -89,7 +89,7 @@ npm start
 
 ## **API Documentation**
 
-Documentation with examples [here](<[https://](https://documenter.getpostman.com/view/24171225/2sAYk8tMyn)>)
+Documentation with examples [here](https://documenter.getpostman.com/view/24171225/2sAYk8tMyn)
 
 ---
 
